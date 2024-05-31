@@ -1,0 +1,21 @@
+version: "3.9"
+services:
+  web_api:
+    build: .
+    env_file:
+      - path: ./.env
+        required: true
+    environment:
+      API_ID: "${API_ID}"
+      API_HASH: "${API_HASH}"
+      DSN: "redis://redis:6379/0"
+    ports:
+      - "42069:42069"
+    depends_on:
+      - redis
+
+  redis:
+    image: redis:6.2-alpine
+    restart: always
+    ports: 
+      - "6379:6379"
