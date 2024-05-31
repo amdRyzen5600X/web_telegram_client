@@ -4,8 +4,8 @@ from telethon import TelegramClient
 from config import API_ID, API_HASH
 from modules import database
 from modules.api.exceptions import ConnectionAlreadyExsist
-from modules.api.models import CheckResult
-from modules.telethon.qr_login import login
+from modules.api.models import CheckResult, MessageModel
+from modules.telethon import login, get_messages
 
 
 async def login_controller(phone_number: str) -> str:
@@ -25,4 +25,9 @@ async def login_check_controller(phone_number: str) -> CheckResult:
         return CheckResult.LOGINED
 
     return CheckResult.WAITING
+    
+async def get_messages_controller(phone_number: str, uname: str) -> list[MessageModel]:
+    client = TelegramClient(session=phone_number, api_id=API_ID, api_hash=API_HASH)
+    result = await get_messages(client, uname)
+    return list(map(lambda member: MessageModel(message_text=member[0].message, is_self=member[1], username=uname), result))
     

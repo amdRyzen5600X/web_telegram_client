@@ -7,7 +7,7 @@ class Phone(BaseModel):
 
 class MessageModel(BaseModel):
     message_text: str
-    from_phone: str
+    is_self: bool
     username: str
 
 class CheckResult(Enum):
