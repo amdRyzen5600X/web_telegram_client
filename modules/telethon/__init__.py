@@ -19,3 +19,9 @@ async def get_messages(client: TelegramClient, uname: str) -> list[tuple[Message
 
     return result
 
+async def send_message(client: TelegramClient, message: str, uname: str) -> Message:
+    await client.connect()
+    sent_message = await client.send_message(uname, message=message)
+
+    return sent_message
+    
