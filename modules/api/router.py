@@ -14,7 +14,7 @@ async def login(phone: Phone) -> JSONResponse:
 
 @router.get(path="/check/login", response_class=JSONResponse)
 async def check_login(phone: str) -> JSONResponse:
-    return JSONResponse(content={"status": login_check_controller(phone)}, status_code=status.HTTP_200_OK)
+    return JSONResponse(content={"status": (await login_check_controller(phone)).value}, status_code=status.HTTP_200_OK)
 
 @router.get(path="/messages", response_model=list[MessageGetModel])
 async def get_messages(phone: str, uname: str) -> JSONResponse:

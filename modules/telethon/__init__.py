@@ -1,11 +1,12 @@
 from telethon import TelegramClient
+from telethon.tl.custom import QRLogin
 from telethon.tl.types import Message
 
 
-async def login(client: TelegramClient) -> str:
+async def login(client: TelegramClient) -> QRLogin:
     await client.connect()
     qr_login = await client.qr_login()
-    return qr_login.url
+    return qr_login
 
 async def get_messages(client: TelegramClient, uname: str) -> list[tuple[Message, bool]]:
     result = []

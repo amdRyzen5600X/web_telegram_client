@@ -18,6 +18,10 @@ class PhoneSessionDB:
         return str(res) if res else None
 
     @classmethod
+    async def del_phone_session_pair(cls, phone_number: str) -> None:
+        await cls.redis.delete(phone_number)
+
+    @classmethod
     async def close(cls):
         await cls.redis.aclose()
 
